@@ -1,0 +1,9 @@
+x. <- c(28, 91, 175, 365)
+y. <- c(4.27, 4.33, 4.55, 4.75)
+plot(x., y., xlab= "Dias", ylab="Tasa de interes", xlim = c(0,365), ylim = c(4.23, 4.8))
+curve(splinefun(x., y.)(x), add = TRUE, col = 2, n = 1001)
+curve(splinefun(x., y., method = "monoH.FC")(x), add = TRUE, col = 3, n = 1001)
+curve(splinefun(x., y., method = "hyman")   (x), add = TRUE, col = 4, n = 1001)
+legend("topleft",
+       paste0("\"", c("Natural", "Hermite", "Monotono cubico"), "\""),
+       col = 2:4, lty = 1, bty = "n")

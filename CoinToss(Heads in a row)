@@ -1,0 +1,24 @@
+CoinToss <- function(Heads_in_a_row){
+    
+    Head_count = 0
+    Flip_count = 0
+    
+    while(Head_count < Heads_in_a_row){
+        
+        Flip = runif(1)
+        Flip_count = Flip_count + 1
+        
+        if (Flip > 0.5) {
+            
+            Head_count = Head_count +1
+            
+            
+        } else {
+            
+            Head_count = 0
+        }
+        
+        print(c(Flip_count, Head_count))
+        
+    }
+}

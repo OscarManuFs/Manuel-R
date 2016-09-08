@@ -1,0 +1,60 @@
+##Simulation for ShareProcess     
+
+##First, simulate the next process         
+         a <- list()
+         
+##Put a limit to the for
+         for (i in 1:1000){ 
+         
+##Asociate "a[[i]]" to a function
+         a[[i]] <- ShareProcess_Multiplier(30.95, .21, -.05, 52, 52)
+         }
+------------------------------------------------------------------------------------------------------------------------
+
+##Write the histogram labels
+         par(mfrow=c(1,3))
+         hist(t(do.call(rbind,a)), xlab = "Stock Price", main = "Histogram of ALFAA",          breaks = 1000)
+         
+         abline(v = mean(do.call(rbind, a)),lwd = 3, col = "blue")
+         abline(v = mean(do.call(rbind, a)) + sd(do.call(rbind, a)),lwd = 3, col = "red")
+         abline(v = mean(do.call(rbind, a)) - sd(do.call(rbind, a)),lwd = 3, col = "red")
+
+
+##Adjust text x,y axis       
+         text(mean(do.call(rbind, a)) + 15, 6, "Standar D.", col =                   "red")
+         text(mean(do.call(rbind, a)) - 13, 6, "Mean", col = "blue")
+         
+         
+##Write the density plot labels
+
+         plot(density(t(do.call(rbind, a))), xlab = "Stock Price", main = "Density of ALFAA", col = "red", lwd = 3)
+         abline(v = mean(do.call(rbind, a)),lwd = 3, col = "blue")
+         abline(v = mean(do.call(rbind, a)) + sd(do.call(rbind, a)),lwd = 3, col = "red")
+         abline(v = mean(do.call(rbind, a)) - sd(do.call(rbind, a)),lwd = 3, col = "red")
+
+
+##Adjust text x,y axis       
+         text(mean(do.call(rbind, a)) + 15, 6, "Standar D.", col =                   "red")
+         
+         text(mean(do.call(rbind, a)) - 13, 6, "Mean", col = "blue")
+         
+
+##write labels in the plot
+         matplot(t(do.call(rbind, a)), type= "l", xlab = "Time", ylab = "Stock Price")
+      
+         abline(h = mean(do.call(rbind, a)),lwd = 3, col = "blue")
+         abline(h = mean(do.call(rbind, a)) + sd(do.call(rbind, a)),lwd = 3, col = "red")
+         abline(h = mean(do.call(rbind, a)) - sd(do.call(rbind, a)),lwd = 3, col = "red")
+
+##Adjust text x,y axis      
+         text(4, mean(do.call(rbind, a)) + 10, "Standar D.", col = "red")
+         
+         text(2, mean(do.call(rbind, a)) + 13, "Mean", col = "blue")
+         
+##Confidence Intervals
+
+         L <- mean(do.call(rbind, a))-(qnorm(0.975)*sd(do.call(rbind, a))/sqrt(52*1000))
+
+         J <- mean(do.call(rbind, a))+(qnorm(0.975)*sd(do.call(rbind, a))/sqrt(52*1000))
+         
+         do.call(rbind, list(c("Mean","Standard D.", "Confidence Interval","of Mean", "Standard Error"), c(mean(do.call(rbind, a)), sd(do.call(rbind, a)), L, J, sd(do.call(rbind, a))/sqrt(52*1000))))

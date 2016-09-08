@@ -1,0 +1,34 @@
+ShareProcess_Exponential <- function(PV, Volatility, V, T, Time_Lapse, Call = TRUE/FALSE, Put = TRUE/FALSE, Free_Risk_Rate){
+  
+  
+  Mean <- V + .5*(Volatility^2)
+  
+  X <- numeric()
+  
+  CA <- PV
+  
+  for (i in 1:Time_Lapse){
+    
+    X[i] <- PV*exp((V/T)+Volatility*rnorm(1, 0, 1)*sqrt(1/T))
+    
+    PV <- X[i]
+    
+  }
+  
+  plot(X, type = "l", xlab = "Time", ylab = "Stock Price")
+  text(x = .1*mean(X), y =mean(X) + 0.01*mean(X), "Mean", col = "blue")
+  abline(h = mean(X), col = "blue")
+  abline(h = mean(X) + sd(X), col = "red")
+  abline(h = mean(X) - sd(X), col = "red")
+  text(x = .1*mean(X) + 2*sd(X), y =mean(X) - 0.01*mean(X) - sd(X) , "Standard D.", col = "red")
+  
+    if (Call == TRUE){ 
+  
+      max((X[Time_Lapse] - CA)/(1 + Free_Risk_Rate), 0)
+      
+   } else {
+ 
+     return(X)
+} 
+
+}
