@@ -24,7 +24,7 @@ NRM <- function(x){
     
     
     xf<-x-(fx/dfx)
-    it<-1+1
+    it<-it+1
   }
     list(a = xf, iteration = it)
   
