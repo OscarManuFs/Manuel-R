@@ -5,13 +5,13 @@ ShareProcess_Exponential <- function(PV, Volatility, V, T, Time_Lapse, Call = TR
   
   X <- numeric()
   
-  CA <- PV
+  X[1] <- PV
   
   for (i in 1:Time_Lapse){
     
-    X[i] <- PV*exp((V/T)+Volatility*rnorm(1, 0, 1)*sqrt(1/T))
+    X[i+1] <- PV*exp((V/T)+Volatility*rnorm(1, 0, 1)*sqrt(1/T))
     
-    PV <- X[i]
+    PV <- X[i+1]
     
   }
   
@@ -28,7 +28,7 @@ ShareProcess_Exponential <- function(PV, Volatility, V, T, Time_Lapse, Call = TR
       
    } else {
  
-     return(X)
+     invisible(X)
 } 
 
 }
