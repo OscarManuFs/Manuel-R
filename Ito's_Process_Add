@@ -28,7 +28,7 @@ ShareProcess_Multiplier <- function(PV, Volatility, V, T, Time_Lapse, Call = TRU
       
    } else {
  
-     return(X)
+     invisible(X)
 }
 
 }
