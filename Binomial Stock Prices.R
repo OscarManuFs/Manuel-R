@@ -27,8 +27,16 @@ Binomial_Stock_Option <- function(PV, Volatility, Delta_T, Time_Lapse, Risk_Free
             option_tree[i, j] = ((1-q_prob)*option_tree[i+1,j] + q_prob*option_tree[i+1,j+1])/exp(Risk_Free_i*(1/Delta_T))
         }
     }
+    
     delta = (option_tree[2,2]-option_tree[2,1])/(tree[2,2]-tree[2,1])
-    return(list(Risk.Neutral.No.Arbitrage.Probability = q_prob, Stock.Tree = t(tree), Option.Tree = t(option_tree), Option.Price = option_tree[1,1], Delta = delta))
+    if (type == "Call"){
+        return(list(Risk.Neutral.No.Arbitrage.Probability = q_prob, Stock.Tree = t(tree), Option.Tree = t(option_tree), Call = option_tree[1,1], Delta = delta))
+    }
+    else {
+        return(list(Risk.Neutral.No.Arbitrage.Probability = q_prob, Stock.Tree = t(tree), Option.Tree = t(option_tree), Put = option_tree[1,1], Delta = delta))
+    }
+    
+    
 }
   
   
